@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polish Cyrillic Editor</title>
+<style>
+  :root { --bg:#1e1f22; --key:#3a3c41; --key2:#2b2d31; --fg:#eee; --accent:#4f8cff; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:16px; background:var(--bg); color:var(--fg);
+         font-family: system-ui, sans-serif; display:flex; flex-direction:column; gap:12px; min-height:100vh; }
+  h1 { font-size:18px; margin:0; font-weight:600; }
+  textarea { flex:1; min-height:240px; width:100%; background:#fff; color:#111; border:0; border-radius:8px;
+             padding:12px; font-size:20px; font-family: Georgia, "Times New Roman", serif; resize:vertical; }
+  #kb { display:flex; flex-direction:column; gap:6px; max-width:900px; width:100%; margin:0 auto; user-select:none; }
+  .row { display:flex; gap:6px; justify-content:center; }
+  .row.indent { padding-left:3%; }
+  .key { flex:1 1 0; max-width:72px; height:48px; background:var(--key); color:var(--fg); border:0;
+         border-radius:6px; font-size:20px; cursor:pointer; padding:0; }
+  .key:hover { background:#4a4d53; }
+  .key.active, .key:active { background:var(--accent); }
+  .key.extra { background:#35405a; }          /* the 2 extra top rows */
+  .key.ctl { background:var(--key2); font-size:14px; max-width:110px; flex:1.5 1 0; }
+  .key.ctl.on { background:var(--accent); }
+  .hint { font-size:12px; opacity:.65; text-align:center; }
+</style>
+</head>
+<body>
+<h1>Polish Cyrillic Editor</h1>
+<textarea id="ed" autofocus spellcheck="false" placeholder="Pisz tutaj…"></textarea>
+<div id="kb"></div>
+<div class="hint">Type normally: physical keys output Cyrillic automatically. Use the buttons above for the extra letters. Shift / Caps Lock = capitals.</div>
+
+<script>
+// Rows 1-2: no physical equivalent -> on-screen buttons only
+const EXTRA = [
+  ["ш","ч","ж","щ","ѕ","ђ","џ","х","?","!"],
+  ["ѫ","ѧ","ћ","ў","њ","о","с\u0301","з\u0301","ж",'"']
+];
+
+// Rows 3-5: mapped by PHYSICAL key position (event.code), same as the Android layout
+const MAIN = [
+  [["KeyQ","к"],["KeyW","в"],["KeyE","е"],["KeyR","р"],["KeyT","т"],["KeyY","з"],["KeyU","у"],["KeyI","и"],["KeyO","о"],["KeyP","п"]],
+  [["KeyA","а"],["KeyS","с"],["KeyD","д"],["KeyF","ф"],["KeyG","г"],["KeyH","х"],["KeyJ","й"],["KeyK","к"],["KeyL","л"]],
+  [["KeyZ","ы"],["KeyX","кс"],["KeyC","ц"],["KeyV","в"],["KeyB","б"],["KeyN","н"],["KeyM","м"]]
+];
+const MAP = {};
+MAIN.flat().forEach(([code, ch]) => MAP[code] = ch);
+
+const ed = document.getElementById("ed");
+const kb = document.getElementById("kb");
+let shiftHeld = false, capsOn = false, stickyShift = false;
+const labelNodes = [];   // [button, baseChar]
+const keyByCode = {};
+
+const upper = () => shiftHeld !== (capsOn || stickyShift);   // XOR-ish: shift flips caps
+const cased = ch => upper() ? ch.toUpperCase() : ch;
+
+function insert(text) {
+  ed.focus();
+  // execCommand keeps undo/redo working; fall back if unsupported
+  if (!document.execCommand("insertText", false, text)) {
+    const s = ed.selectionStart, e = ed.selectionEnd;
+    ed.setRangeText(text, s, e, "end");
+    ed.dispatchEvent(new Event("input", { bubbles: true }));
+  }
+}
+
+function makeKey(base, cls, code) {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "key " + (cls || "");
+  b.addEventListener("mousedown", e => e.preventDefault());   // keep focus in textarea
+  b.addEventListener("click", e => { const up = (e.shiftKey || shiftHeld) !== capsOn; insert(up ? base.toUpperCase() : base); });
+  labelNodes.push([b, base]);
+  if (code) keyByCode[code] = b;
+  return b;
+}
+
+function build() {
+  EXTRA.forEach(r => {
+    const row = document.createElement("div"); row.className = "row";
+    r.forEach(ch => row.appendChild(makeKey(ch, "extra")));
+    kb.appendChild(row);
+  });
+  refresh();
+}
+
+function refresh() {
+  labelNodes.forEach(([b, base]) => b.textContent = cased(base));
+}
+
+ed.addEventListener("keydown", e => {
+  if (e.key === "Shift") { shiftHeld = true; refresh(); return; }
+  if (e.key === "CapsLock") { capsOn = e.getModifierState("CapsLock"); refresh(); return; }
+  if (e.ctrlKey || e.metaKey || e.altKey) return;           // keep Ctrl+C/V/Z etc.
+  const ch = MAP[e.code];
+  if (!ch) return;                                           // space, enter, digits, , . etc. behave normally
+  e.preventDefault();
+  capsOn = e.getModifierState("CapsLock");
+  shiftHeld = e.shiftKey;
+  insert(cased(ch));
+  const b = keyByCode[e.code]; if (b) b.classList.add("active");
+});
+ed.addEventListener("keyup", e => {
+  if (e.key === "Shift") { shiftHeld = false; refresh(); }
+  if (e.key === "CapsLock") { capsOn = e.getModifierState("CapsLock"); refresh(); }
+  const b = keyByCode[e.code]; if (b) b.classList.remove("active");
+});
+window.addEventListener("blur", () => { shiftHeld = false; refresh(); });
+
+build();
+</script>
+</body>
+</html>
