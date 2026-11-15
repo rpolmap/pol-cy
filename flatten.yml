@@ -1,0 +1,34 @@
+name: Flatten custom-keyboard folder
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  flatten:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Move contents up and remove folder
+        run: |
+          if [ ! -d custom-keyboard ]; then
+            echo "custom-keyboard folder not found, nothing to do"
+            exit 0
+          fi
+          cp -a custom-keyboard/. .
+          rm -rf custom-keyboard
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to commit"
+          else
+            git commit -m "Flatten custom-keyboard folder"
+            git push
+          fi
