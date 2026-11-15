@@ -33,6 +33,14 @@
         <Key android:codes="34" android:keyLabel="&quot;"/>
     </Row>
 
+    <!-- Row 2b: ja je jo ju (hold = ia ie io iu) -->
+    <Row>
+        <Key android:codes="-200" android:keyWidth="24.6%p" android:keyLabel="ja" android:keyOutputText="ja" android:popupKeyboard="@xml/popup_latin_ja"/>
+        <Key android:codes="-200" android:keyWidth="24.6%p" android:keyLabel="je" android:keyOutputText="je" android:popupKeyboard="@xml/popup_latin_je"/>
+        <Key android:codes="-200" android:keyWidth="24.6%p" android:keyLabel="jo" android:keyOutputText="jo" android:popupKeyboard="@xml/popup_latin_jo"/>
+        <Key android:codes="-200" android:keyWidth="24.6%p" android:keyLabel="ju" android:keyOutputText="ju" android:popupKeyboard="@xml/popup_latin_ju"/>
+    </Row>
+
     <!-- Row 3: Q W E R T Z U I O P -->
     <Row>
         <Key android:codes="113" android:keyLabel="q"/>
