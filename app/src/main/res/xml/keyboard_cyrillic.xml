@@ -33,11 +33,19 @@
         <Key android:codes="34" android:keyLabel="&quot;"/>
     </Row>
 
+    <!-- Row 2b: Я Е Ё Ю (hold = иа ие ио ию) -->
+    <Row>
+        <Key android:codes="1103" android:keyWidth="24.6%p" android:keyLabel="я" android:popupKeyboard="@xml/popup_cyr_ja"/>
+        <Key android:codes="1077" android:keyWidth="24.6%p" android:keyLabel="е" android:popupKeyboard="@xml/popup_cyr_je"/>
+        <Key android:codes="1105" android:keyWidth="24.6%p" android:keyLabel="ё" android:popupKeyboard="@xml/popup_cyr_jo"/>
+        <Key android:codes="1102" android:keyWidth="24.6%p" android:keyLabel="ю" android:popupKeyboard="@xml/popup_cyr_ju"/>
+    </Row>
+
     <!-- Row 3: Q W E R T Z U I O P -->
     <Row>
         <Key android:codes="1082" android:keyLabel="к"/>
         <Key android:codes="1074" android:keyLabel="в"/>
-        <Key android:codes="1077" android:keyLabel="е"/>
+        <Key android:codes="1101" android:keyLabel="э"/>
         <Key android:codes="1088" android:keyLabel="р"/>
         <Key android:codes="1090" android:keyLabel="т"/>
         <Key android:codes="1079" android:keyLabel="з"/>
