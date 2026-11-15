@@ -61,10 +61,12 @@ class PolishCyrillicIME : InputMethodService(), KeyboardView.OnKeyboardActionLis
         }
     }
 
-    // Multi-letter keys (сь, зь, кс) arrive here via keyOutputText
+    // Multi-letter keys (ja, иа, сь, зь, кс) arrive here via keyOutputText.
+    // With Shift on, only the first letter is capitalized (Ja, Иа, Szcz).
     override fun onText(text: CharSequence?) {
         if (text == null) return
-        val out = if (isCaps) text.toString().uppercase() else text.toString()
+        val s = text.toString()
+        val out = if (isCaps) s.replaceFirstChar { it.uppercaseChar() } else s
         currentInputConnection?.commitText(out, 1)
     }
 
