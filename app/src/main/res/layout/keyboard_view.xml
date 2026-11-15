@@ -8,5 +8,6 @@
     android:keyBackground="@drawable/bg_key"
     android:keyTextColor="@color/gboard_text_white"
     android:keyTextSize="20sp"
+    android:popupLayout="@layout/popup_keyboard"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"/>
