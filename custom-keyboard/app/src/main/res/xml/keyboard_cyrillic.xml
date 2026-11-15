@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="9.6%p"
+    android:keyHeight="50dp"
+    android:horizontalGap="0.4%p"
+    android:verticalGap="4dp">
+
+    <!-- Row 1: Polish digraphs -->
+    <Row>
+        <Key android:codes="1096" android:keyLabel="Ш"/> <!-- Sz -->
+        <Key android:codes="1095" android:keyLabel="Ч"/> <!-- Cz -->
+        <Key android:codes="1078" android:keyLabel="Ж"/> <!-- Rz/Ż -->
+        <Key android:codes="1097" android:keyLabel="Щ"/> <!-- Szcz -->
+        <Key android:codes="1109" android:keyLabel="Ѕ"/> <!-- Dz -->
+        <Key android:codes="1106" android:keyLabel="Ђ"/> <!-- Dź -->
+        <Key android:codes="1119" android:keyLabel="Џ"/> <!-- Dż -->
+        <Key android:codes="1093" android:keyLabel="Х"/> <!-- Ch -->
+        <Key android:codes="63" android:keyLabel="?"/>
+        <Key android:codes="33" android:keyLabel="!"/>
+    </Row>
+
+    <!-- Row 2: Polish diacritics -->
+    <Row>
+        <Key android:codes="1131" android:keyLabel="Ѫ"/> <!-- Ą -->
+        <Key android:codes="1127" android:keyLabel="Ѧ"/> <!-- Ę -->
+        <Key android:codes="1115" android:keyLabel="Ћ"/> <!-- Ć -->
+        <Key android:codes="1118" android:keyLabel="Ў"/> <!-- Ł -->
+        <Key android:codes="1114" android:keyLabel="Њ"/> <!-- Ń -->
+        <Key android:codes="1086" android:keyLabel="о"/> <!-- Ó -->
+        <Key android:codes="-200" android:keyLabel="С́" android:keyOutputText="с́"/> <!-- Ś -->
+        <Key android:codes="-200" android:keyLabel="З́" android:keyOutputText="з́"/> <!-- Ź -->
+        <Key android:codes="1078" android:keyLabel="ж"/> <!-- Ż -->
+        <Key android:codes="34" android:keyLabel="&quot;"/>
+    </Row>
+
+    <!-- Row 3: Q W E R T Z U I O P -->
+    <Row>
+        <Key android:codes="1082" android:keyLabel="к"/>
+        <Key android:codes="1074" android:keyLabel="в"/>
+        <Key android:codes="1077" android:keyLabel="е"/>
+        <Key android:codes="1088" android:keyLabel="р"/>
+        <Key android:codes="1090" android:keyLabel="т"/>
+        <Key android:codes="1079" android:keyLabel="з"/>
+        <Key android:codes="1091" android:keyLabel="у"/>
+        <Key android:codes="1080" android:keyLabel="и"/>
+        <Key android:codes="1086" android:keyLabel="о"/>
+        <Key android:codes="1087" android:keyLabel="п"/>
+    </Row>
+
+    <!-- Row 4: A S D F G H J K L -->
+    <Row>
+        <Key android:codes="1072" android:keyLabel="а" android:horizontalGap="5.4%p"/>
+        <Key android:codes="1089" android:keyLabel="с"/>
+        <Key android:codes="1076" android:keyLabel="д"/>
+        <Key android:codes="1092" android:keyLabel="ф"/>
+        <Key android:codes="1075" android:keyLabel="г"/>
+        <Key android:codes="1093" android:keyLabel="х"/>
+        <Key android:codes="1081" android:keyLabel="й"/>
+        <Key android:codes="1082" android:keyLabel="к"/>
+        <Key android:codes="1083" android:keyLabel="л"/>
+    </Row>
+
+    <!-- Row 5: Shift Y X C V B N M Backspace -->
+    <Row>
+        <Key android:codes="-1" android:keyLabel="⇧" android:keyWidth="13.6%p" android:keyBackground="@drawable/bg_key_special"/>
+        <Key android:codes="1099" android:keyLabel="ы"/>
+        <Key android:codes="-200" android:keyLabel="кс" android:keyOutputText="кс"/> <!-- X -->
+        <Key android:codes="1094" android:keyLabel="ц"/>
+        <Key android:codes="1074" android:keyLabel="в"/>
+        <Key android:codes="1073" android:keyLabel="б"/>
+        <Key android:codes="1085" android:keyLabel="н"/>
+        <Key android:codes="1084" android:keyLabel="м"/>
+        <Key android:codes="-5" android:keyLabel="⌫" android:keyWidth="13.6%p" android:isRepeatable="true" android:keyBackground="@drawable/bg_key_special"/>
+    </Row>
+
+    <!-- Bottom Action Row -->
+    <Row>
+        <Key android:codes="-101" android:keyLabel="КИР ➔ PL" android:keyWidth="17.6%p" android:keyBackground="@drawable/bg_key_special"/>
+        <Key android:codes="44" android:keyLabel="," android:keyWidth="11.6%p"/>
+        <Key android:codes="32" android:keyLabel=" " android:keyWidth="37.6%p"/>
+        <Key android:codes="46" android:keyLabel="." android:keyWidth="11.6%p"/>
+        <Key android:codes="10" android:keyLabel="↵" android:keyWidth="17.6%p" android:keyBackground="@drawable/bg_key_special"/>
+    </Row>
+</Keyboard>

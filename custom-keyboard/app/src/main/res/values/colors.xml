@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gboard_bg">#1e1f25</color>
+    <color name="gboard_key_normal">#2d2f36</color>
+    <color name="gboard_key_special">#383e4a</color>
+    <color name="gboard_key_press">#454954</color>
+    <color name="gboard_text_white">#FFFFFF</color>
+</resources>
